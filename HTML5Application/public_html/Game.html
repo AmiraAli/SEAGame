@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>SEA GAME</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            //variables that will be loaded from cookies or registration oage
+            var name = "amira";
+            var score = 1200;
+            var diffucalty = "easy";
+            //dimantion of ball to set it`s  width and i`t`s height
+            var ball_dballention = 50;
+            //id of ball created
+            var idBall = 0;
+            /**
+             * create Ball every one second 
+             * from random position of window width
+             * and with random colors
+             */
+
+            setInterval(creatBall, 1000);
+            function creatBall() {
+                var ball = document.createElement("div");
+                //set ball width and height according to it`s dimantion
+                ball.style.width = ball_dballention + "px";
+                ball.style.height = ball_dballention + "px";
+                //set ball position absolute and make it`s top fixed with 0px
+                ball.style.position = "absolute";
+                ball.style.top = "0px";
+                //evay ball is created increase set it`s id(id is auto increment)
+                ball.id = ++idBall;
+                //generate random position of window width 
+                var rand = Math.round(Math.random() * (window.innerWidth - 50));
+                //set ball position left with it`s random value
+                ball.style.left = rand + "px";
+                // generate random colors of ball
+                var rand_color = Math.round((Math.random() * (10 - 1)) + 1);
+                //set green balls with 70% and every red,blue and brown color with 10%
+                //and get to every color number of it`s type
+                if (rand_color <= 7)
+                {
+                    ball.style.background = "green";
+                    //set type of ball green =1
+                    ball.type = 1;
+                }
+                else if (rand_color === 8)
+                {
+                    ball.style.background = "red";
+                    //set type of ball red =2
+                    ball.type = 2;
+                }
+                else if (rand_color === 9)
+                {
+                    ball.style.background = "brown";
+                    //set type of ball brown =3
+                    ball.type = 3;
+                }
+                else if (rand_color === 10)
+                {
+                    ball.style.background = "blue";
+                    //set type of ball green =4
+                    ball.type = 4;
+                }
+                //add listener of click the ball
+                ball.addEventListener("click", ballClick);
+                document.body.appendChild(ball);
+            }
+            /**
+             * create function on click the ball
+             * 
+             */
+            function ballClick() {
+                alert(this.id);
+            }
+
+
+        </script>
+    </body>
+</html>

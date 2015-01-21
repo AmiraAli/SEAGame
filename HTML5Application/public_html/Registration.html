@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>SEA GAME</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .body{
+                width: 1000px;
+                height: 1000px;
+            }
+            .head{ 
+                width:1000px;
+                height:200px;
+                margin: auto;
+                color:#993333;
+                font-size:100px;
+
+            }
+            .container{
+                width: 1000px;
+                height: 800px;
+                margin:auto;
+            }
+            .form{ 
+                width:800px;
+                margin:auto;
+                color:#993333;
+                font-size:60px;
+            }
+            .name{
+                font-size: 35px;
+            }
+            .diffucalty{
+                font-size: 35px;
+            }
+            .play_button{
+                font-size: 50px;
+              
+            }
+        </style>
+    </head>
+    <body>
+        <div class="head">
+            <p class="title"> <center>SEA GAME</center> 
+        </div>
+        <div class="container">
+            <form class="form">
+                <fieldset>
+                    <p>Name<input type="text" class="name"  >
+                    <p>Diffucalty 
+                        <select class="diffucalty"> 
+                            <option value="easy">easy</option>
+                            <option value="meduim">meduim</option>
+                            <option value="diffucalt">diffucalt</option>
+                        </select>
+                        <p><center>
+                        <button class="play_button">Play</button>
+                        </center>
+                </fieldset>
+            </form>
+        </div>
+        <script>
+            //function to get client name when enter his name and itS diffucalty
+          function getName(){
+              var name =document.getElementsByName('input').value;
+              console.log(name);
+          }  
+        </script>
+    </body>
+</html>
