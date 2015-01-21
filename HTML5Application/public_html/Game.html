@@ -17,28 +17,42 @@ and open the template in the editor.
             var score = 1200;
             var diffucalty = "easy";
             //dimantion of ball to set it`s  width and i`t`s height
-            var ball_dballention = 50;
+            var ball_dimention = 50;
             //id of ball created
             var idBall = 0;
+            //change the speed according to difficalty of the game
+            //100 for easy
+            //75 for meduim
+            //50 for diffcult
+            var time = 200;
+            // stoping moving balls array
+            var stop;
+            //creating balls array
+            var create;
+            //varibale of missed green balls
+            var missed = 0;
+
             /**
              * create Ball every one second 
              * from random position of window width
              * and with random colors
              */
 
-            setInterval(creatBall, 1000);
+            create = setInterval(creatBall, 1000);
             function creatBall() {
                 var ball = document.createElement("div");
                 //set ball width and height according to it`s dimantion
-                ball.style.width = ball_dballention + "px";
-                ball.style.height = ball_dballention + "px";
+                ball.style.width = ball_dimention + "px";
+                ball.style.height = ball_dimention + "px";
                 //set ball position absolute and make it`s top fixed with 0px
                 ball.style.position = "absolute";
                 ball.style.top = "0px";
+                // put class name to ball element
+                ball.className = "ballClass";
                 //evay ball is created increase set it`s id(id is auto increment)
                 ball.id = ++idBall;
                 //generate random position of window width 
-                var rand = Math.round(Math.random() * (window.innerWidth - 50));
+                var rand = Math.round(Math.random() * (window.innerWidth -ball_dimention  - (ball_dimention * (2 / 5))));
                 //set ball position left with it`s random value
                 ball.style.left = rand + "px";
                 // generate random colors of ball
@@ -66,19 +80,113 @@ and open the template in the editor.
                 else if (rand_color === 10)
                 {
                     ball.style.background = "blue";
-                    //set type of ball green =4
+                    //set type of ball blue =4
                     ball.type = 4;
                 }
-                //add listener of click the ball
+
                 ball.addEventListener("click", ballClick);
                 document.body.appendChild(ball);
             }
+            /**
+             * function to moving the ball down by constant offset
+             *and change the speed by time according to diffucalty
+             *saving all balls in array of stop to stop it 
+             */
+            stop = setInterval(function () {
+                var currentBalls = document.getElementsByClassName("ballClass");
+
+                for (var i = 0; i < currentBalls.length; i++)
+                {
+                    //y variable indicate to current top of each ball
+                    var y = currentBalls[i].style.top.split("px");
+                    //incrasing the top of each ball by the offset
+                    currentBalls[i].style.top = parseInt(parseInt(y[0].toString()) + 10) + "px";
+                    //check if the current ball reached the end of window to remove the ball 
+                    if (parseInt(y[0]) >= window.innerHeight - ball_dimention - (ball_dimention * (2 / 5)))
+                    {
+                        //function of missed 3 green balls
+
+                        if (currentBalls[i].type === 1)
+                        {
+
+                            ++missed;
+
+                            if (missed === 3)
+                            {
+                                alert("game over");
+                            }
+                        }
+                        //remove missed balls
+                        currentBalls[i].remove();
+                    }
+                }
+            }, time);
+
+
             /**
              * create function on click the ball
              * 
              */
             function ballClick() {
-                alert(this.id);
+                //green ball
+                if (this.type === 1)
+                {
+                    score++;
+                   this.remove();
+                }
+                //red ball
+
+                if (this.type === 2)
+                {
+
+                    alert('lose');
+                      this.remove();
+
+                }
+                //brown ball
+
+                if (this.type === 3)
+                {
+
+                    var currentBalls = document.getElementsByClassName("ballClass");
+                     ball_dimention = (ball_dimention / 2);
+
+                    for (var i = 0; i < currentBalls.length; i++)
+                    {
+                       
+                        //set ball width and height according to it`s dimantion
+                        currentBalls[i].style.width = ball_dimention + "px";
+                        currentBalls[i].style.height = ball_dimention + "px";
+
+                    }
+                      this.remove();
+
+                }
+                //blue ball
+
+                if (this.type === 4)
+                {
+                    var currentBalls = document.getElementsByClassName("ballClass");
+                    ball_dimention = (ball_dimention * 2);
+
+                    for (var i = 0; i < currentBalls.length; i++)
+                    {
+                        
+                        //set ball width and height according to it`s dimantion
+                        currentBalls[i].style.width = ball_dimention + "px";
+                        currentBalls[i].style.height = ball_dimention + "px";
+
+                    }
+                      this.remove();
+
+                }
+                //hide  the ball
+                // this.style.display="none";
+                //clearInterval(stop);
+                //clearInterval(create);
+                //close();
+
+
             }
 
 
